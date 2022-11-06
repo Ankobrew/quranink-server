@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Chapter {
+  id     Int     @id
+  name   String
+  verses Verse[]
+}
+
+model Verse {
+  id        Int     @id @default(autoincrement())
+  ayah      Int
+  content   String
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
+  chapterId Int
+}
