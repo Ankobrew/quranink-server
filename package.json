@@ -1,0 +1,19 @@
+{
+  "name": "quranink-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.1"
+  }
+}
