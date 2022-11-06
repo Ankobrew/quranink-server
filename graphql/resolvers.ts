@@ -12,13 +12,26 @@ export const resolvers: Resolvers = {
     verses: (_parent, _args, ctx) => {
       return ctx.prisma.verse.findMany();
     },
-    chapter: (_parent, args, ctx) => {
+    getOneChapter: (_parent, args, ctx) => {
       return ctx.prisma.chapter.findUnique({
         include: {
           verses: {},
         },
         where: {
           id: args.id,
+        },
+      });
+    },
+
+    getOneVerse: (_parent, args, ctx) => {
+      return ctx.prisma.verse.findMany({
+        where: {
+          chapterId: {
+            equals: args.chapterId,
+          },
+          ayah: {
+            equals: args.ayah,
+          },
         },
       });
     },

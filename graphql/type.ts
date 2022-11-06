@@ -23,14 +23,21 @@ export type Chapter = {
 
 export type Query = {
   __typename?: 'Query';
-  chapter: Chapter;
   chapters: Array<Maybe<Chapter>>;
+  getOneChapter: Chapter;
+  getOneVerse: Array<Maybe<Verse>>;
   verses: Array<Maybe<Verse>>;
 };
 
 
-export type QueryChapterArgs = {
+export type QueryGetOneChapterArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetOneVerseArgs = {
+  ayah: Scalars['Int'];
+  chapterId: Scalars['Int'];
 };
 
 export type Verse = {
@@ -136,8 +143,9 @@ export type ChapterResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  chapter?: Resolver<ResolversTypes['Chapter'], ParentType, ContextType, RequireFields<QueryChapterArgs, 'id'>>;
   chapters?: Resolver<Array<Maybe<ResolversTypes['Chapter']>>, ParentType, ContextType>;
+  getOneChapter?: Resolver<ResolversTypes['Chapter'], ParentType, ContextType, RequireFields<QueryGetOneChapterArgs, 'id'>>;
+  getOneVerse?: Resolver<Array<Maybe<ResolversTypes['Verse']>>, ParentType, ContextType, RequireFields<QueryGetOneVerseArgs, 'ayah' | 'chapterId'>>;
   verses?: Resolver<Array<Maybe<ResolversTypes['Verse']>>, ParentType, ContextType>;
 };
 

@@ -11,13 +11,13 @@ export const typeDefs = gql`
     id: Int
     ayah: Int
     content: String
-
     chapterId: Int
   }
 
   type Query {
     chapters: [Chapter]!
     verses: [Verse]!
-    chapter(id: Int!): Chapter!
+    getOneChapter(id: Int!): Chapter!
+    getOneVerse(chapterId: Int!, ayah: Int!): [Verse]!
   }
 `;
