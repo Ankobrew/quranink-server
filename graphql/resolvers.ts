@@ -18,7 +18,7 @@ export const resolvers: Resolvers = {
           verses: {},
         },
         where: {
-          id: args.id,
+          id: args.chapterId,
         },
       });
     },

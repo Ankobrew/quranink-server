@@ -8,14 +8,12 @@ async function main() {
 
   //   console.log(Chapter);
 
-  const Verse = await prisma.verse.findMany({
+  const Verse = await prisma.chapter.findUnique({
+    include: {
+      verses: {},
+    },
     where: {
-      chapterId: {
-        equals: 1,
-      },
-      ayah: {
-        equals: 1,
-      },
+      id: 1,
     },
   });
 

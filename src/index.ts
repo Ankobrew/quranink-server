@@ -21,7 +21,7 @@ const main = async () => {
   apolloServer.applyMiddleware({ app });
 
   app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+    console.log(`Quranink Server listening on port ${port}`);
   });
 };
 

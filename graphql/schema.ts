@@ -17,7 +17,7 @@ export const typeDefs = gql`
   type Query {
     chapters: [Chapter]!
     verses: [Verse]!
-    getOneChapter(id: Int!): Chapter!
+    getOneChapter(chapterId: Int!): Chapter!
     getOneVerse(chapterId: Int!, ayah: Int!): [Verse]!
   }
 `;
