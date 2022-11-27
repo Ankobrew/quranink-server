@@ -19,5 +19,6 @@ export const typeDefs = gql`
     verses: [Verse]!
     getOneChapter(chapterId: Int!): Chapter!
     getOneVerse(chapterId: Int!, ayah: Int!): [Verse]!
+    createVideo: Int!
   }
 `;

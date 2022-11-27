@@ -1,4 +1,5 @@
 import { Resolvers } from "./type";
+import { exec } from "child_process";
 
 export const resolvers: Resolvers = {
   Query: {
@@ -34,6 +35,20 @@ export const resolvers: Resolvers = {
           },
         },
       });
+    },
+    createVideo: (_parent, _args, _ctx) => {
+      exec("cd graphql && ls", (error, stdout, stderr) => {
+        if (error) {
+          console.log(`error: ${error.message}`);
+          return;
+        }
+        if (stderr) {
+          console.log(`stderr: ${stderr}`);
+          return;
+        }
+        console.log(`${stdout}`);
+      });
+      return 2;
     },
   },
 };

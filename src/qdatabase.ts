@@ -8,16 +8,22 @@ async function main() {
 
   //   console.log(Chapter);
 
-  const Verse = await prisma.chapter.findUnique({
-    include: {
-      verses: {},
-    },
-    where: {
-      id: 1,
-    },
-  });
+  let verseCount = [];
 
-  console.log(Verse);
+  for (let index = 90; index < 114; index++) {
+    const Verse = await prisma.chapter.findUnique({
+      include: {
+        verses: {},
+      },
+      where: {
+        id: index + 1,
+      },
+    });
+
+    verseCount[index - 90] = Verse?.verses.length;
+  }
+
+  console.log(verseCount);
 }
 
 main()

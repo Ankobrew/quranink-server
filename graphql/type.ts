@@ -24,6 +24,7 @@ export type Chapter = {
 export type Query = {
   __typename?: 'Query';
   chapters: Array<Maybe<Chapter>>;
+  createVideo?: Maybe<Scalars['Int']>;
   getOneChapter: Chapter;
   getOneVerse: Array<Maybe<Verse>>;
   verses: Array<Maybe<Verse>>;
@@ -144,6 +145,7 @@ export type ChapterResolvers<ContextType = any, ParentType extends ResolversPare
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   chapters?: Resolver<Array<Maybe<ResolversTypes['Chapter']>>, ParentType, ContextType>;
+  createVideo?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   getOneChapter?: Resolver<ResolversTypes['Chapter'], ParentType, ContextType, RequireFields<QueryGetOneChapterArgs, 'chapterId'>>;
   getOneVerse?: Resolver<Array<Maybe<ResolversTypes['Verse']>>, ParentType, ContextType, RequireFields<QueryGetOneVerseArgs, 'ayah' | 'chapterId'>>;
   verses?: Resolver<Array<Maybe<ResolversTypes['Verse']>>, ParentType, ContextType>;
