@@ -8,7 +8,7 @@
     "codegen": "graphql-codegen --config codegen.ts",
     "test": "ts-node src/qdatabase.ts",
     "screenshot": "ts-node src/screenshot.ts",
-    "createvideo": "ts-node src/createvideo.ts"
+    "ffmpeg": "ts-node src/ffmpegfiles.ts"
   },
   "keywords": [],
   "author": "",

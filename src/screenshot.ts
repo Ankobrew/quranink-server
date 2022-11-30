@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 
-import { verseCount } from "./const";
+import { verseCount } from "../utils/const";
 
 const mainFolderName = "images";
 
