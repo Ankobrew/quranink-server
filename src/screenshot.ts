@@ -1,31 +1,19 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
-
 import { verseCount } from "../utils/const";
+import { createDirectory, addLeadingZero } from "../utils/generalfunction";
 
 const mainFolderName = "images";
 
 const path = `${mainFolderName}/114/img006.jpg`;
 
-function createDirectory() {
-  try {
-    if (!fs.existsSync(`${mainFolderName}`)) {
-      fs.mkdirSync(`${mainFolderName}`);
-    }
-  } catch (err) {
-    console.error(err);
-  }
+function createDestination() {
+  createDirectory(mainFolderName);
 
   for (let index = 1; index < 115; index++) {
     const folderName = `${mainFolderName}/${index}`;
 
-    try {
-      if (!fs.existsSync(folderName)) {
-        fs.mkdirSync(folderName);
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    createDirectory(folderName);
   }
 }
 
@@ -41,7 +29,7 @@ async function takeScreenshot() {
       await page.goto(website_url, { waitUntil: "networkidle0" });
       // Capture screenshot
       await page.screenshot({
-        path: `${mainFolderName}/${i + 1}/img00${z + 1}.jpg`,
+        path: `${mainFolderName}/${i + 1}/img${addLeadingZero(z + 1)}.jpg`,
         fullPage: true,
       });
       // Close the browser instance
@@ -53,9 +41,11 @@ async function takeScreenshot() {
 
 try {
   if (!fs.existsSync(path)) {
-    createDirectory();
+    createDestination();
 
     takeScreenshot();
+  } else {
+    console.log("Screenshoots All ready Exists");
   }
 } catch (err) {
   console.error(err);

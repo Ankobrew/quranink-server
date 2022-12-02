@@ -1,0 +1,11 @@
+file 'images/cover/cover108.jpg'
+duration 3
+file 'images/1/img001.jpg'
+duration 4.808
+file 'images/1/img002.jpg'
+duration 2.46
+file 'images/1/img003.jpg'
+duration 4.638
+file 'images/outro.jpg'
+duration 6
+file 'images/outro.jpg'

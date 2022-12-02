@@ -1,0 +1,15 @@
+file 'images/cover/cover105.jpg'
+duration 3
+file 'images/1/img001.jpg'
+duration 5.313
+file 'images/1/img002.jpg'
+duration 3.913
+file 'images/1/img003.jpg'
+duration 3.891
+file 'images/1/img004.jpg'
+duration 8.36
+file 'images/1/img005.jpg'
+duration 6.452
+file 'images/outro.jpg'
+duration 6
+file 'images/outro.jpg'

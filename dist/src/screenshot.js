@@ -5,28 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const fs_1 = __importDefault(require("fs"));
-const const_1 = require("./const");
+const const_1 = require("../utils/const");
+const generalfunction_1 = require("../utils/generalfunction");
 const mainFolderName = "images";
 const path = `${mainFolderName}/114/img006.jpg`;
-function createDirectory() {
-    try {
-        if (!fs_1.default.existsSync(`${mainFolderName}`)) {
-            fs_1.default.mkdirSync(`${mainFolderName}`);
-        }
-    }
-    catch (err) {
-        console.error(err);
-    }
+function createDestination() {
+    (0, generalfunction_1.createDirectory)(mainFolderName);
     for (let index = 1; index < 115; index++) {
         const folderName = `${mainFolderName}/${index}`;
-        try {
-            if (!fs_1.default.existsSync(folderName)) {
-                fs_1.default.mkdirSync(folderName);
-            }
-        }
-        catch (err) {
-            console.error(err);
-        }
+        (0, generalfunction_1.createDirectory)(folderName);
     }
 }
 async function takeScreenshot() {
@@ -37,7 +24,7 @@ async function takeScreenshot() {
             const website_url = `http://localhost:3000/chapters/${i + 1}/${z + 1}`;
             await page.goto(website_url, { waitUntil: "networkidle0" });
             await page.screenshot({
-                path: `${mainFolderName}/${i + 1}/img00${z + 1}.jpg`,
+                path: `${mainFolderName}/${i + 1}/img${(0, generalfunction_1.addLeadingZero)(z + 1)}.jpg`,
                 fullPage: true,
             });
         }
@@ -46,8 +33,11 @@ async function takeScreenshot() {
 }
 try {
     if (!fs_1.default.existsSync(path)) {
-        createDirectory();
+        createDestination();
         takeScreenshot();
+    }
+    else {
+        console.log("Screenshoots All ready Exists");
     }
 }
 catch (err) {

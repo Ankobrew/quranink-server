@@ -7,10 +7,17 @@ const mainFolderName = "ffmpeg";
 const timingFolderName = "timing";
 let timeDiff = 0.0;
 
-createDirectory(mainFolderName);
+createDirectory(mainFolderName, true);
 
 for (let index = 0; index < 114; index++) {
   let sequenceFile = `input${index + 1}`;
+
+  fs.writeFileSync(
+    `${mainFolderName}/${sequenceFile}.txt`,
+    `file 'images/cover/cover${index + 1}.jpg'\n`
+  );
+
+  fs.appendFileSync(`${mainFolderName}/${sequenceFile}.txt`, `duration 3\n`);
   const data = fs.readFileSync(
     `${timingFolderName}/${addLeadingZero(index + 1)}.txt`,
     "utf8"
@@ -25,9 +32,9 @@ for (let index = 0; index < 114; index++) {
         arrayTiming[z + 1] = value.toString();
         continue;
       } else {
-        fs.writeFileSync(
+        fs.appendFileSync(
           `${mainFolderName}/${sequenceFile}.txt`,
-          `file 'images/1/img${addLeadingZero(k)}.png'\n`
+          `file 'images/cover/cover${index + 1}.jpg'\n`
         );
         timeDiff = parseFloat(arrayTiming[z]);
         fs.appendFileSync(
@@ -40,8 +47,9 @@ for (let index = 0; index < 114; index++) {
     } else {
       fs.appendFileSync(
         `${mainFolderName}/${sequenceFile}.txt`,
-        `file 'images/1/img${addLeadingZero(k + 1)}.png'\n`
+        `file 'images/1/img${addLeadingZero(k + 1)}.jpg'\n`
       );
+
       timeDiff = parseFloat(arrayTiming[z]) - parseFloat(arrayTiming[z - 1]);
       fs.appendFileSync(
         `${mainFolderName}/${sequenceFile}.txt`,
@@ -52,7 +60,15 @@ for (let index = 0; index < 114; index++) {
     if (z == verseCount[index]) {
       fs.appendFileSync(
         `${mainFolderName}/${sequenceFile}.txt`,
-        `file 'images/1/img${addLeadingZero(k + 1)}.png'\n`
+        `file 'images/outro.jpg'\n`
+      );
+      fs.appendFileSync(
+        `${mainFolderName}/${sequenceFile}.txt`,
+        `duration 6\n`
+      );
+      fs.appendFileSync(
+        `${mainFolderName}/${sequenceFile}.txt`,
+        `file 'images/outro.jpg'\n`
       );
     }
   }

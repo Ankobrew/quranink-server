@@ -10,11 +10,13 @@ export function addLeadingZero(value: Number): string {
   }
 }
 
-export function createDirectory(folderName: string) {
+export function createDirectory(folderName: string, overwrite = false) {
   try {
     if (!fs.existsSync(folderName)) {
       fs.mkdirSync(folderName);
-    } else {
+    }
+
+    if (overwrite) {
       fs.rmdirSync(folderName, { recursive: true });
       fs.mkdirSync(folderName);
     }
