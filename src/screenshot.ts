@@ -10,6 +10,8 @@ const path = `${mainFolderName}/114/img006.jpg`;
 function createDestination() {
   createDirectory(mainFolderName);
 
+  createDirectory(`${mainFolderName}/cover`);
+
   for (let index = 1; index < 115; index++) {
     const folderName = `${mainFolderName}/${index}`;
 
@@ -23,6 +25,14 @@ async function takeScreenshot() {
   const page = await browser.newPage();
 
   for (let i = 0; i < 114; i++) {
+    const website_url = `http://localhost:3000/chapters/cover/${i + 1}`;
+    // Open URL in current page
+    await page.goto(website_url, { waitUntil: "networkidle0" });
+    // Capture screenshot
+    await page.screenshot({
+      path: `${mainFolderName}/cover/cover${i + 1}.jpg`,
+      fullPage: true,
+    });
     for (let z = 0; z < verseCount[i]; z++) {
       const website_url = `http://localhost:3000/chapters/${i + 1}/${z + 1}`;
       // Open URL in current page
@@ -36,7 +46,16 @@ async function takeScreenshot() {
     }
   }
 
-  await browser.close();
+  const website_url = `http://localhost:3000/chapters/outro`;
+  // Open URL in current page
+  await page.goto(website_url, { waitUntil: "networkidle0" });
+  // Capture screenshot
+  await page.screenshot({
+    path: `${mainFolderName}/outro.jpg`,
+    fullPage: true,
+  });
+
+  http: await browser.close();
 }
 
 try {

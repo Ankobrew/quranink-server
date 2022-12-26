@@ -1,6 +1,8 @@
 import { Resolvers } from "./type";
 import { exec } from "child_process";
 
+const code = { content: "empty" };
+
 export const resolvers: Resolvers = {
   Query: {
     chapters: (_parent, _args, ctx) => {
@@ -49,6 +51,17 @@ export const resolvers: Resolvers = {
         console.log(`${stdout}`);
       });
       return 2;
+    },
+
+    getCode: (_parent, _args, _ctx) => {
+      return code;
+    },
+  },
+
+  Mutation: {
+    addCode: (_parent, args, _ctx) => {
+      code.content = args.content;
+      return code;
     },
   },
 };

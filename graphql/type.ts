@@ -21,10 +21,26 @@ export type Chapter = {
   verses: Array<Maybe<Verse>>;
 };
 
+export type Code = {
+  __typename?: 'Code';
+  content: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  addCode: Code;
+};
+
+
+export type MutationAddCodeArgs = {
+  content: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   chapters: Array<Maybe<Chapter>>;
-  createVideo?: Maybe<Scalars['Int']>;
+  createVideo: Scalars['Int'];
+  getCode: Code;
   getOneChapter: Chapter;
   getOneVerse: Array<Maybe<Verse>>;
   verses: Array<Maybe<Verse>>;
@@ -120,7 +136,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Chapter: ResolverTypeWrapper<Chapter>;
+  Code: ResolverTypeWrapper<Code>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Verse: ResolverTypeWrapper<Verse>;
@@ -130,7 +148,9 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Chapter: Chapter;
+  Code: Code;
   Int: Scalars['Int'];
+  Mutation: {};
   Query: {};
   String: Scalars['String'];
   Verse: Verse;
@@ -143,9 +163,19 @@ export type ChapterResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Code'] = ResolversParentTypes['Code']> = {
+  content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  addCode?: Resolver<ResolversTypes['Code'], ParentType, ContextType, RequireFields<MutationAddCodeArgs, 'content'>>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   chapters?: Resolver<Array<Maybe<ResolversTypes['Chapter']>>, ParentType, ContextType>;
-  createVideo?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  createVideo?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  getCode?: Resolver<ResolversTypes['Code'], ParentType, ContextType>;
   getOneChapter?: Resolver<ResolversTypes['Chapter'], ParentType, ContextType, RequireFields<QueryGetOneChapterArgs, 'chapterId'>>;
   getOneVerse?: Resolver<Array<Maybe<ResolversTypes['Verse']>>, ParentType, ContextType, RequireFields<QueryGetOneVerseArgs, 'ayah' | 'chapterId'>>;
   verses?: Resolver<Array<Maybe<ResolversTypes['Verse']>>, ParentType, ContextType>;
@@ -161,6 +191,8 @@ export type VerseResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type Resolvers<ContextType = any> = {
   Chapter?: ChapterResolvers<ContextType>;
+  Code?: CodeResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Verse?: VerseResolvers<ContextType>;
 };

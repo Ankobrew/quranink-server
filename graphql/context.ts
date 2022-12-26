@@ -1,11 +1,8 @@
+// @ts-ignore
 import { PrismaClient } from "@prisma/client";
-import { prisma } from "../lib/prisma";
 
-export type Context = {
+export interface MyContext {
   prisma: PrismaClient;
-};
-export async function createContext({}): Promise<Context> {
-  return {
-    prisma,
-  };
 }
+
+export const prisma = new PrismaClient();

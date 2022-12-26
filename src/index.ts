@@ -1,30 +1,18 @@
 import { typeDefs } from "../graphql/schema";
 import { resolvers } from "../graphql/resolvers";
+import { MyContext, prisma } from "../graphql/context";
 
-import express from "express";
+import { startStandaloneServer } from "@apollo/server/standalone";
 
-import { ApolloServer } from "apollo-server-express";
+import { ApolloServer } from "@apollo/server";
 
-import { createContext } from "../graphql/context";
-
-const main = async () => {
-  const app = express();
-  const port = 4000;
-
-  const apolloServer = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: createContext,
+async function startServer() {
+  const server = new ApolloServer<MyContext>({ typeDefs, resolvers });
+  const { url } = await startStandaloneServer(server, {
+    context: async ({}) => ({ prisma }),
+    listen: { port: 4000 },
   });
+  console.log(`🚀  Server ready at ${url}`);
+}
 
-  await apolloServer.start();
-  apolloServer.applyMiddleware({ app });
-
-  app.listen(port, () => {
-    console.log(`Quranink Server listening on port ${port}`);
-  });
-};
-
-main().catch((err) => {
-  console.error(err);
-});
+startServer();

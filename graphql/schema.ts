@@ -1,6 +1,4 @@
-import { gql } from "apollo-server";
-
-export const typeDefs = gql`
+export const typeDefs = `#graphql
   type Chapter {
     id: Int
     name: String
@@ -14,11 +12,20 @@ export const typeDefs = gql`
     chapterId: Int
   }
 
+  type Code {
+    content: String!
+  }
+
+  type Mutation {
+    addCode(content: String!): Code!
+  }
+
   type Query {
     chapters: [Chapter]!
     verses: [Verse]!
     getOneChapter(chapterId: Int!): Chapter!
     getOneVerse(chapterId: Int!, ayah: Int!): [Verse]!
     createVideo: Int!
+    getCode: Code!
   }
 `;
