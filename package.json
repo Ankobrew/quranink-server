@@ -10,7 +10,8 @@
     "screenshot": "ts-node src/screenshot.ts",
     "ffmpeg": "ts-node src/ffmpegfiles.ts",
     "exp": "ts-node src/exp.ts",
-    "upload": "ts-node src/uploadtoyoutube.ts"
+    "upload": "ts-node src/uploadtoyoutube.ts",
+    "createvideo": "ts-node src/createvideo.ts"
   },
   "keywords": [],
   "author": "",

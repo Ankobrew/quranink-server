@@ -24,3 +24,28 @@ export function createDirectory(folderName: string, overwrite = false) {
     console.error(err);
   }
 }
+
+export function isFileExist(path: string): boolean {
+  try {
+    fs.statSync(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+export async function checkForAssetFile(
+  folderName: string,
+  extension: string
+): Promise<boolean> {
+  try {
+    // Get a list of all files in the `video` folder
+    const files = await fs.promises.readdir(folderName);
+
+    // Check if any of the files have the `.mp4` file extension
+    return files.some((file) => file.endsWith(extension));
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}

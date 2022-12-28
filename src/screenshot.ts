@@ -1,13 +1,10 @@
 import puppeteer from "puppeteer";
-import fs from "fs";
 import { verseCount } from "../utils/const";
 import { createDirectory, addLeadingZero } from "../utils/generalfunction";
 
 const mainFolderName = "images";
 
-const path = `${mainFolderName}/114/img006.jpg`;
-
-function createDestination() {
+export function createDestination() {
   createDirectory(mainFolderName);
 
   createDirectory(`${mainFolderName}/cover`);
@@ -19,10 +16,15 @@ function createDestination() {
   }
 }
 
-async function takeScreenshot() {
-  const browser = await puppeteer.launch();
+export async function takeScreenshot() {
+  const browser = await puppeteer.launch({ headless: true });
 
   const page = await browser.newPage();
+
+  await page.setViewport({
+    width: 1920,
+    height: 1080,
+  });
 
   for (let i = 0; i < 114; i++) {
     const website_url = `http://localhost:3000/chapters/cover/${i + 1}`;
@@ -31,7 +33,8 @@ async function takeScreenshot() {
     // Capture screenshot
     await page.screenshot({
       path: `${mainFolderName}/cover/cover${i + 1}.jpg`,
-      fullPage: true,
+      fullPage: false,
+      quality: 100,
     });
     for (let z = 0; z < verseCount[i]; z++) {
       const website_url = `http://localhost:3000/chapters/${i + 1}/${z + 1}`;
@@ -46,26 +49,8 @@ async function takeScreenshot() {
     }
   }
 
-  const website_url = `http://localhost:3000/chapters/outro`;
-  // Open URL in current page
-  await page.goto(website_url, { waitUntil: "networkidle0" });
-  // Capture screenshot
-  await page.screenshot({
-    path: `${mainFolderName}/outro.jpg`,
-    fullPage: true,
-  });
-
   http: await browser.close();
 }
 
-try {
-  if (!fs.existsSync(path)) {
-    createDestination();
-
-    takeScreenshot();
-  } else {
-    console.log("Screenshoots All ready Exists");
-  }
-} catch (err) {
-  console.error(err);
-}
+createDestination();
+takeScreenshot();
