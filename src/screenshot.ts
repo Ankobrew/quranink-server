@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 import { verseCount } from "../utils/const";
 import { createDirectory, addLeadingZero } from "../utils/generalfunction";
 
-const mainFolderName = "images";
+const mainFolderName = "ffmpeg/images";
 
 export function createDestination() {
   createDirectory(mainFolderName);
