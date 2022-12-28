@@ -1,10 +1,10 @@
 file 'images/cover/cover110.jpg'
 duration 3
-file 'images/1/img001.jpg'
+file 'images/110/img001.jpg'
 duration 4.61
-file 'images/1/img002.jpg'
+file 'images/110/img002.jpg'
 duration 6.162
-file 'images/1/img003.jpg'
+file 'images/110/img003.jpg'
 duration 7.412
 file 'images/outro.jpg'
 duration 6

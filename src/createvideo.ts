@@ -1,25 +1,9 @@
-import { isFileExist, checkForAssetFile } from "../utils/generalfunction";
-import { createDestination, takeScreenshot } from "./screenshot";
+import { cli, addLeadingZero } from "../utils/generalfunction";
 
-async function main() {
-  const result = await checkForAssetFile("video", ".mp4");
-
-  console.log(result);
-
-  if (result) {
-    console.log("Videos exist");
-  } else {
-    if (isFileExist("images/114/img006.jpg")) {
-      if (isFileExist("ffmpeg/input114.txt") && isFileExist("audio/114.mp3")) {
-        console.log("ffmpeg timings and audio file found");
-      } else {
-        console.log("ffmpeg timings file or audio not found");
-      }
-    } else {
-      createDestination();
-      takeScreenshot();
-      main();
-    }
-  }
+for (let i = 1; i <= 114; i++) {
+  cli(
+    `cd ffmpeg && ffmpeg -f concat -i input${i}.txt -vf scale=1920:-1 -fps_mode vfr -pix_fmt yuv420p video/z${i}.mp4 && ffmpeg -i video/z${i}.mp4 -itsoffset 3 -i audio/${addLeadingZero(
+      i
+    )}.mp3 -c:v copy -map 0:v -map 1:a -y video/${i}.mp4 && rm video/z${i}.mp4`
+  );
 }
-main();

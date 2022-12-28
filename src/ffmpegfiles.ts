@@ -1,13 +1,13 @@
 import fs from "fs";
 import { verseCount } from "../utils/const";
-import { createDirectory } from "../utils/generalfunction";
+//import { createDirectory } from "../utils/generalfunction";
 import { addLeadingZero } from "../utils/generalfunction";
 
 const mainFolderName = "ffmpeg";
 const timingFolderName = "timing";
 let timeDiff = 0.0;
 
-createDirectory(mainFolderName, true);
+//createDirectory(mainFolderName, true);
 
 for (let index = 0; index < 114; index++) {
   let sequenceFile = `input${index + 1}`;
@@ -47,7 +47,7 @@ for (let index = 0; index < 114; index++) {
     } else {
       fs.appendFileSync(
         `${mainFolderName}/${sequenceFile}.txt`,
-        `file 'images/1/img${addLeadingZero(k + 1)}.jpg'\n`
+        `file 'images/${index + 1}/img${addLeadingZero(k + 1)}.jpg'\n`
       );
 
       timeDiff = parseFloat(arrayTiming[z]) - parseFloat(arrayTiming[z - 1]);

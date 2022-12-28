@@ -1,5 +1,5 @@
 import fs from "fs";
-
+import { exec } from "child_process";
 export function addLeadingZero(value: Number): string {
   if (value < 10) {
     return "00" + value.toString();
@@ -48,4 +48,18 @@ export async function checkForAssetFile(
     console.error(error);
     return false;
   }
+}
+
+export function cli(command: string) {
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`${stdout}`);
+  });
 }

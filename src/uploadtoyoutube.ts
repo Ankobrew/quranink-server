@@ -78,7 +78,7 @@ async function uploadVideo(
       categoryId: "27",
     },
     status: {
-      privacyStatus: "private",
+      privacyStatus: "public",
     },
   };
   const media = {
@@ -133,15 +133,15 @@ function addToPlaylist(
 }
 
 async function main() {
-  const OAuth2Client = await getAccessToken();
-  const videoId = await uploadVideo(
-    "src/001.mp4",
-    "test",
-    "test",
-    ["test"],
-    OAuth2Client
-  );
-  addToPlaylist("PLcK9Aw4kFuDbsa2lGZWHJG9V3YleAj4HH", videoId, OAuth2Client);
+  // const OAuth2Client = await getAccessToken();
+  // const videoId = await uploadVideo(
+  //   "src/001.mp4",
+  //   "test",
+  //   "test",
+  //   ["test"],
+  //   OAuth2Client
+  // );
+  // addToPlaylist("PLcK9Aw4kFuDbsa2lGZWHJG9V3YleAj4HH", videoId, OAuth2Client);
 }
 
 main();
