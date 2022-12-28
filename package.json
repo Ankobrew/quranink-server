@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "codegen": "graphql-codegen --config codegen.ts",
-    "test": "ts-node src/qdatabase.ts",
+    "qdatabase": "ts-node src/qdatabase.ts",
     "screenshot": "ts-node src/screenshot.ts",
     "ffmpeg": "ts-node src/ffmpegfiles.ts",
-    "exp": "ts-node src/exp.ts",
+    "test": "ts-node src/test.ts",
     "upload": "ts-node src/uploadtoyoutube.ts",
     "createvideo": "ts-node src/createvideo.ts"
   },

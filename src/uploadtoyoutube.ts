@@ -3,6 +3,12 @@ import { request } from "graphql-request";
 
 import fs from "fs";
 import { OAuth2Client } from "google-auth-library";
+import { quranChapter } from "../utils/const";
+import {
+  compareFileNames,
+  deleteDir,
+  readDirec,
+} from "../utils/generalfunction";
 
 const query = `
 query {
@@ -11,6 +17,11 @@ query {
   }
 }
 `;
+
+const quranChapterArray = Object.entries(quranChapter).map(([key, value]) => [
+  key,
+  value,
+]);
 
 async function wait(seconds: number): Promise<void> {
   return new Promise((resolve) => {
@@ -79,6 +90,7 @@ async function uploadVideo(
     },
     status: {
       privacyStatus: "public",
+      madeForKids: false,
     },
   };
   const media = {
@@ -133,15 +145,39 @@ function addToPlaylist(
 }
 
 async function main() {
-  // const OAuth2Client = await getAccessToken();
-  // const videoId = await uploadVideo(
-  //   "src/001.mp4",
-  //   "test",
-  //   "test",
-  //   ["test"],
-  //   OAuth2Client
-  // );
-  // addToPlaylist("PLcK9Aw4kFuDbsa2lGZWHJG9V3YleAj4HH", videoId, OAuth2Client);
+  const OAuth2Client = await getAccessToken();
+
+  let files = readDirec("ffmpeg/video");
+
+  files = files.sort(compareFileNames);
+
+  for (let index = 0; index < 2; index++) {
+    let fileName = files[index];
+    let num = fileName.split(".")[0];
+    const videoId = await uploadVideo(
+      `ffmpeg/video/${fileName}`,
+      `Surah ${
+        quranChapterArray[parseInt(num) - 1][0]
+      } recited by Sheikh Nasser Al Qatami | English translation`,
+      `English translation of the Quran, Surah ${
+        quranChapterArray[parseInt(num) - 1][0]
+      }(${
+        quranChapterArray[parseInt(num) - 1][1]
+      }) recited by Sheikh Nasser Al Qatami.`,
+      [
+        "Islam",
+        "Quran",
+        "Surah",
+        "Nasser Al Qatami",
+        "English",
+        "translation",
+        "recitation",
+      ],
+      OAuth2Client
+    );
+    addToPlaylist("PLcK9Aw4kFuDbsa2lGZWHJG9V3YleAj4HH", videoId, OAuth2Client);
+    deleteDir(`ffmpeg/video/${fileName}`);
+  }
 }
 
 main();

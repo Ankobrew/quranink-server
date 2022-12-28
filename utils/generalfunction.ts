@@ -1,5 +1,6 @@
 import fs from "fs";
 import { exec } from "child_process";
+
 export function addLeadingZero(value: Number): string {
   if (value < 10) {
     return "00" + value.toString();
@@ -62,4 +63,28 @@ export function cli(command: string) {
     }
     console.log(`${stdout}`);
   });
+}
+
+export function readDirec(dir: string): string[] {
+  try {
+    const files = fs.readdirSync(dir);
+    return files;
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+}
+
+export function compareFileNames(a: string, b: string): number {
+  const aNumber = parseInt(a.split(".")[0], 10);
+  const bNumber = parseInt(b.split(".")[0], 10);
+  return aNumber - bNumber;
+}
+
+export function deleteDir(dir: string) {
+  try {
+    fs.unlinkSync(dir);
+  } catch (err) {
+    console.error(err);
+  }
 }
