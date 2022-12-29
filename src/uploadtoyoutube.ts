@@ -90,7 +90,6 @@ async function uploadVideo(
     },
     status: {
       privacyStatus: "public",
-      madeForKids: false,
     },
   };
   const media = {
@@ -151,7 +150,7 @@ async function main() {
 
   files = files.sort(compareFileNames);
 
-  for (let index = 0; index < 2; index++) {
+  for (let index = 0; index < 3; index++) {
     let fileName = files[index];
     let num = fileName.split(".")[0];
     const videoId = await uploadVideo(
